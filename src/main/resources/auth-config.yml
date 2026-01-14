@@ -1,0 +1,39 @@
+# Do not change this value!
+config-version: 1
+
+# This setting is only needed if you are using the LingoAPI, a multi-language based plugin library.
+# By default, this setting is 'false'
+# use-lingo-support: false
+
+# Here you can define whether the keys should be stored encrypted on your local server or encrypted in an external database.
+# You can choose between:
+# - h2 -- local storage system of your server
+# - MariaDB -- external database (don't forget to define the login credentials!)
+#
+# If you are hosting a smaller server, like an SMP, we recommend you leave this configuration out.
+# Change this setting only if you know what you are doing!
+storage-system: h2
+
+# You can ignore this section if you are using 'h2' as the 'storage-system'.
+# These are the login credentials needed to access the external database.
+database-credentials:
+  database-host: HOST
+  database-port: 3306
+  database-user: USER
+  database-password: PASSWORD
+  database-db: DEFAULT
+
+# If a player wants to join the server and inherits this permission, the player will be forced to type in their TOTP from their Google Authenticator app!
+# If you want to force every player to use TOTP, just type 'none' or 'false'.
+# By default, this setting is set to: 'luna.auth.force'
+permission-needed: luna.auth.force
+
+# This setting is for developers who want to implement LunaAuth functions in their own plugins.
+# If you set this to 'true', the endpoints of LunaAuth are open for every plugin on the server!
+# Be aware that every plugin on the server can obtain the decrypted key used to identify a player.
+#
+# The 'open-api-logging' feature is used to trace database accesses.
+# This is especially recommended to gather further information about which plugins have access to LunaAuth.
+# ONLY CHANGE THESE SETTINGS IF YOU KNOW WHAT YOU ARE DOING!
+# open-api-support: false
+# open-api-logging: false

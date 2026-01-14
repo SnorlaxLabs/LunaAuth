@@ -1,0 +1,7 @@
+name: LunaAuth
+version: '1.0-SNAPSHOT'
+main: de.snorlaxlabs.LunaAuthProvider
+api-version: '1.21'
+authors: [ Seltex ]
+description: Developed by the RelaxoGames.de development team.
+website: relaxogames.de

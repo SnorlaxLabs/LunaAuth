@@ -1,0 +1,8 @@
+# Do not change this value!
+config-version: 1
+
+# This setting is only needed, if you are using the LingoAPI a multilanguage based plugin library.
+# By default, this setting is 'false'
+use-lingo-support: false
+
+#
