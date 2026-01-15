@@ -1,6 +1,8 @@
-package de.snorlaxlabs.files;
+package de.snorlaxlabs.bukkit.files;
 
-import de.snorlaxlabs.LunaAuthProvider;
+
+import de.snorlaxlabs.bukkit.LunaBukkit;
+import de.snorlaxlabs.storage.ConnectionProvider;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -28,10 +30,10 @@ public class FileManager {
         if (!dataFolder.exists()) dataFolder.mkdir();
 
         // Config file
-        configFile = new File(dataFolder, "auth-config.yml");
+        configFile = new File(dataFolder, "config.yml");
         try {
             if (!configFile.exists()) {
-                InputStream stream = LunaAuthProvider.getProvider().getResource("auth-config.yml");
+                InputStream stream = LunaBukkit.getProvider().getResource("bukkit-config.yml");
                 if (stream != null) Files.copy(stream, configFile.toPath());
             }
         } catch (IOException e) {
@@ -40,10 +42,25 @@ public class FileManager {
         authConfig = YamlConfiguration.loadConfiguration(configFile);
 
         if (hasLingoSupport())initializeLingo();
+        initializeStorageConnection();
     }
 
+    // This is currently without any function :P
     private void initializeLingo(){
 
+    }
+
+    private void initializeStorageConnection(){
+        String configPath = ConfigPaths.DATABASE_SECTION + ".";
+        if (isServerOwnedStorage()) LunaBukkit.setStorageProvider(new ConnectionProvider(
+                (String) readFromConfig(configPath + "host"),
+                (String) readFromConfig(configPath + "user"),
+                (String) readFromConfig(configPath + "password"),
+                (int) readFromConfig(configPath + "port"),
+                (String) readFromConfig(configPath + "database"),
+                (int) readFromConfig(configPath + "pool-size"),
+                (boolean) readFromConfig(configPath + "use-ssl")
+        ));
     }
 
     private boolean hasLingoSupport(){
@@ -51,12 +68,22 @@ public class FileManager {
         return lingoSupport != null && (boolean) lingoSupport;
     }
 
+    private boolean isServerOwnedStorage(){
+        String ownStorage = (String) readFromConfig(ConfigPaths.DATABASE_SECTION);
+        return ownStorage.equalsIgnoreCase("h2");
+    }
+
     private Object readFromConfig(ConfigPaths key){
         return authConfig.get(key.getKey());
     }
+    private Object readFromConfig(String key){
+        return authConfig.get(key);
+    }
 
     enum ConfigPaths{
-        LINGO_SUPPORT("use-lingo-support");
+        LINGO_SUPPORT("use-lingo-support"),
+        DATABASE_SECTION("database-credentials"),
+        DATABASE_HOST(".database-host");
 
         String key;
 

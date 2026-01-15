@@ -1,7 +1,14 @@
 name: LunaAuth
 version: '1.0-SNAPSHOT'
-main: de.snorlaxlabs.LunaAuthProvider
+main: de.snorlaxlabs.bukkit.LunaBukkit
 api-version: '1.21'
-authors: [ Seltex ]
+authors: [ Seltexx ]
 description: Developed by the RelaxoGames.de development team.
-website: relaxogames.de
+website: RelaxoGames.de
+commands:
+  auth:
+    permission: luna.auth.command
+    usage: /auth <subcommand>
+    description: This is the usual way to control the LunaAuth plugin
+    aliases:
+      - authenticate

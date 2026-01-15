@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id("xyz.jpenilla.run-paper") version "2.3.1"
+    id("xyz.jpenilla.run-velocity") version "2.3.1"
 }
 
 group = 'de.snorlaxlabs'
@@ -16,9 +17,17 @@ repositories {
 }
 
 dependencies {
+    // Server minecraft versions
     compileOnly("io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT")
+    compileOnly("com.velocitypowered:velocity-api:3.4.0-SNAPSHOT")
+    annotationProcessor("com.velocitypowered:velocity-api:3.4.0-SNAPSHOT")
 
+    // Google authenticator
     implementation 'com.warrenstrange:googleauth:1.4.0'
+
+    // storage features
+    implementation 'com.h2database:h2:2.4.240'
+    implementation("com.zaxxer:HikariCP:5.1.0")
 }
 
 tasks {
